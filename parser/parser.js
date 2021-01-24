@@ -13,21 +13,6 @@ class Parser {
   }
 }
 
-class Goods {
-  /**
-   * @param {string} name
-   * @param {number} price
-   * @param {string} url
-   * @param {string} imageUrl
-   */
-  constructor(name, price, url, imageUrl) {
-    this.name = name;
-    this.price = price;
-    this.url = url;
-    this.imageUrl = imageUrl;
-  }
-}
-
 /**
  * @param {Array<Parser>} parsers
  */
@@ -50,9 +35,28 @@ async function getData(parsers) {
   return data;
 }
 
+const zakazParse = () => {
+  let items = Array.from(document.querySelectorAll('.product-tile'));
+
+  return items.map($el => {
+    let weight = $el.querySelector('.product-tile__weight').innerText.trim()
+    weight = weight.replace('за', '');
+    const unit = weight.replaceAll(/[ 0-9]/g, '');
+    weight = parseFloat(weight);
+
+    if (unit.toLowerCase() === 'г') weight *= 1e-3;
+
+    return {
+      name: $el.querySelector('.product-tile__title').innerText,
+      price: +(parseFloat($el.querySelector('.Price__value_caption').innerText) / weight).toFixed(2),
+      url: $el.href,
+      imageUrl: $el.querySelector('.product-tile__image-i').src,
+    }
+  })
+}
+
 // Function that'll parse buckwheat
-// Returns array of goods
-const getDataAboutBuckwheat = async () => (await getData.call(null, [
+const getDataAboutBuckwheat = getData.bind(null, [
   new Parser(
     'https://auchan.ua/ua/catalogsearch/result/?q=%D0%B3%D1%80%D0%B5%D1%87%D0%B0%D0%BD%D0%B0%20%D0%BA%D1%80%D1%83%D0%BF%D0%B0',
     'div[class^="item_root"]',
@@ -77,6 +81,12 @@ const getDataAboutBuckwheat = async () => (await getData.call(null, [
         }
       });
     }
+  ),
+
+  new Parser(
+    'https://auchan.zakaz.ua/ru/categories/buckwheat-auchan/',
+    '.product-tile',
+    zakazParse,
   ),
 
   new Parser(
@@ -115,26 +125,8 @@ const getDataAboutBuckwheat = async () => (await getData.call(null, [
   new Parser(
     'https://metro.zakaz.ua/ru/categories/buckwheat-metro/',
     '.product-tile',
-
-    () => {
-      let items = Array.from(document.querySelectorAll('.product-tile'));
-
-      return items.map($el => {
-        let weight = $el.querySelector('.product-tile__weight').innerText.trim()
-        const unit = weight.replaceAll(/[ 0-9]/g, '');
-        weight = parseFloat(weight);
-
-        if (unit.toLowerCase() === 'г') weight *= 1e-3;
-
-        return {
-          name: $el.querySelector('.product-tile__title').innerText,
-          price: +(parseFloat($el.querySelector('.Price__value_caption').innerText) / weight).toFixed(2),
-          url: $el.href,
-          imageUrl: $el.querySelector('.product-tile__image-i').src,
-        }
-      })
-    }
+    zakazParse,
   )
-])).map(goods => new Goods(goods.name, goods.price, goods.url, goods.imageUrl));
+]);
 
-(async () => console.log(await getDataAboutBuckwheat()))();
+export { getDataAboutBuckwheat };
