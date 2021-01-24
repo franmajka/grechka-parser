@@ -19,7 +19,7 @@ class Parser {
 async function getData(parsers) {
   if (!parsers.length) return [];
 
-  const browser = await puppeteer.launch();
+  const browser = await puppeteer.launch({ args: ['--no-sandbox'] });
   const page = await browser.newPage();
 
   let data = [];
