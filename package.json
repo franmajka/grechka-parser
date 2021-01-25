@@ -6,7 +6,7 @@
   "main": "index.js",
   "scripts": {
     "start": "node index",
-    "test": "nodemon index"
+    "dev": "nodemon index"
   },
   "keywords": [
     "grechka",

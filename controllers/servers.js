@@ -1,5 +1,5 @@
-import {getDataAboutBuckwheat} from '../parser/parser.js';
+import Product from '../models/Product.js';
 
 export const getBuckweatData = async (req, res) => {
-  res.json(await getDataAboutBuckwheat());
+  res.json(await Product.find({}).lean());
 }

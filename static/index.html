@@ -14,13 +14,27 @@
       <span class="visually-hidden">Loading...</span>
     </div>
 
-    <div class="row row-cols-1 row-cols-md-3 g-4">
-      <div class="col" v-for='product in products'>
-        <div class="card">
-          <img :src="product.imageUrl" class="card-img-top" alt="grechka">
-          <div class="card-body">
-            <h5 class="card-title"><a :href="product.url">{{product.name}}</a></h5>
-            <p class="card-text">Цена за кг: {{ product.price }} грн</p>
+    <div class="container mt-5" v-else>
+      <div class="row justify-content-center mb-5">
+        <div class="col-7">
+          <div class="">
+            <label for="selectSort" class='form-label'>Отосортировать гречку</label>
+            <select v-model='selectedSort' class="form-select mb-3" id='selectSort'>
+              <option v-for='(value, text) in sortedBy' :value='value'>{{ text }}</option>
+            </select>
+          </div>
+
+          <div class="row row-cols-1 row-cols-md-3 g-4">
+            <div class="col" v-for='product in sortedProducts'>
+              <div class="card">
+                <img :src="product.imageUrl" class="card-img-top" alt="grechka">
+                <div class="card-body">
+                  <h5 class="card-title">{{product.name}}</h5>
+                  <p class="card-text">Цена за кг: {{ product.price }} грн</p>
+                  <a :href="product.url" class="btn btn-sm btn-primary btn-block stretched-link">Просмотреть товар</a>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>

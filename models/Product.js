@@ -1,0 +1,26 @@
+import mongoose from 'mongoose';
+const {Schema, model} = mongoose;
+
+const schema = new Schema({
+  name: {
+    type: String,
+    required: true,
+  },
+
+  price: {
+    type: Number,
+    required: true,
+  },
+
+  url: {
+    type: String,
+    required: true,
+  },
+
+  imageUrl: {
+    type: String,
+    required: true,
+  },
+});
+
+export default model('Product', schema);
