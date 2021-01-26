@@ -6,6 +6,10 @@ const App = {
       sortedBy: {
         'от дорогой к дешевой': (a, b) => b.price - a.price,
         'от дешевой к дорогой': (a, b) => a.price - b.price,
+      },
+      filteredByPrice: {
+        from: null,
+        to: null,
       }
     }
   },
@@ -13,13 +17,19 @@ const App = {
   async mounted() {
     const res = await fetch('/api/buckweat-data');
     this.products = await res.json();
-
-    console.log(this.products);
   },
 
   computed: {
     sortedProducts() {
       return this.products.sort(this.selectedSort)
+    },
+
+    filteredProducts() {
+      console.log(this.filteredByPrice);
+      return this.sortedProducts.filter(v => (
+        (!(typeof this.filteredByPrice.from === 'number') || this.filteredByPrice.from <= v.price) &&
+        (!(typeof this.filteredByPrice.to === 'number') || v.price <= this.filteredByPrice.to)
+      ));
     }
   }
 };

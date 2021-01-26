@@ -17,15 +17,22 @@
     <div class="container mt-5" v-else>
       <div class="row justify-content-center mb-5">
         <div class="col-7">
-          <div class="">
+          <div class='mb-3'>
             <label for="selectSort" class='form-label'>Отосортировать гречку</label>
-            <select v-model='selectedSort' class="form-select mb-3" id='selectSort'>
+            <select v-model='selectedSort' class="form-select" id='selectSort'>
               <option v-for='(value, text) in sortedBy' :value='value'>{{ text }}</option>
             </select>
           </div>
 
+          <div class="mb-3">
+            Фильтровать от
+            <input type="number" v-model.number.lazy='filteredByPrice.from'>
+            до
+            <input type="number" v-model.number.lazy='filteredByPrice.to'>
+          </div>
+
           <div class="row row-cols-1 row-cols-md-3 g-4">
-            <div class="col" v-for='product in sortedProducts'>
+            <div class="col" v-for='product in filteredProducts'>
               <div class="card">
                 <img :src="product.imageUrl" class="card-img-top" alt="grechka">
                 <div class="card-body">
