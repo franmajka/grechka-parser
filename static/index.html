@@ -31,7 +31,7 @@
   <hr class = "slider">
   </div>
 
-  <div id="app">
+  <div id="app" v-cloak>
     <div class="d-flex justify-content-center mt-5" v-if='!products.length'>
       <div class="spinner-border text-primary" role="status">
         <span class="visually-hidden">Loading...</span>
@@ -85,8 +85,7 @@
   </div>
 </footer>
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-      <script>window.jQuery || document.write('<script src="../assets/js/vendor/jquery.slim.min.js"><\/script>')</script><script src="../assets/dist/js/bootstrap.bundle.min.js"></script>
-  <script src="https://unpkg.com/vue@next"></script>
+  <script src="https://unpkg.com/vue@3.0.5/dist/vue.global.prod.js"></script>
   <script src='/app.js'></script>
 </body>
 </html>
