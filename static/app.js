@@ -25,7 +25,6 @@ const App = {
     },
 
     filteredProducts() {
-      console.log(this.filteredByPrice);
       return this.sortedProducts.filter(v =>
         (!(typeof this.filteredByPrice.from === 'number') || this.filteredByPrice.from <= v.price) &&
         (!(typeof this.filteredByPrice.to === 'number') || v.price <= this.filteredByPrice.to)
