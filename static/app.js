@@ -11,7 +11,7 @@ const App = {
         from: null,
         to: null,
       }
-    }
+    };
   },
 
   async mounted() {
@@ -21,17 +21,18 @@ const App = {
 
   computed: {
     sortedProducts() {
-      return this.products.sort(this.selectedSort)
+      return this.products.sort(this.selectedSort);
     },
 
     filteredProducts() {
       console.log(this.filteredByPrice);
-      return this.sortedProducts.filter(v => (
+      return this.sortedProducts.filter(v =>
         (!(typeof this.filteredByPrice.from === 'number') || this.filteredByPrice.from <= v.price) &&
         (!(typeof this.filteredByPrice.to === 'number') || v.price <= this.filteredByPrice.to)
-      ));
+      );
     }
   }
 };
 
+// eslint-disable-next-line no-undef
 Vue.createApp(App).mount('#app');

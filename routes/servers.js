@@ -3,6 +3,6 @@ import {getBuckweatData} from '../controllers/servers.js';
 
 const router = Router();
 
-router.get('/api/buckweat-data', getBuckweatData)
+router.get('/api/buckweat-data', getBuckweatData);
 
-export default router
+export default router;

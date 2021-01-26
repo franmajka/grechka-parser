@@ -2,43 +2,71 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+  <link href="https://fonts.googleapis.com/css?family=Kaushan+Script|Montserrat:400,700&amp;subset=cyrillic-ext" rel="stylesheet">
   <link rel="stylesheet" href="/styles.css">
-  <title>Купить гречку</title>
+  <title>Тестовое задание</title>
+  <!-- Bootstrap core CSS -->
+<link href="../assets/dist/css/bootstrap.min.css" rel="stylesheet">
+<!-- Custom styles for this template -->
+<link href="styles.css" rel="stylesheet">
 </head>
 
 <body>
+  <main role="main">
+    <header class="header">
+      <div class="container">
+          <div class="header__inner">
+              <div class="header__logo">INT20H</div><hr>
+
+          </div>
+      </div>
+  </header>
+
+  <div class="intro">
+    <div class="container">
+        <div class="intro__inner">
+            <h2 class="intro__suptitle">Web Development</h2>
+           <!-- <h1 class="intro__title">Web Debelopment</h1>-->
+            <a class="btn" href="https://github.com/franmajka/grechka-parser">Github</a>
+        </div>
+    </div>
+  <hr class = "slider">
+  </div>
+
   <div id="app">
     <div class="spinner-border text-primary" role="status" v-if='!products.length'>
       <span class="visually-hidden">Loading...</span>
     </div>
 
-    <div class="container mt-5" v-else>
-      <div class="row justify-content-center mb-5">
+    <div class="album py-5 bg-light" v-else>
+      <div class="row justify-content-center mb-5 w-100">
         <div class="col-7">
-          <div class='mb-3'>
-            <label for="selectSort" class='form-label'>Отосортировать гречку</label>
+          <div class='input-group mb-3'>
+            <span class='input-group-text'>Отсортировать гречку</span>
             <select v-model='selectedSort' class="form-select" id='selectSort'>
               <option v-for='(value, text) in sortedBy' :value='value'>{{ text }}</option>
             </select>
           </div>
 
-          <div class="mb-3">
-            Фильтровать от
-            <input type="number" v-model.number.lazy='filteredByPrice.from'>
-            до
-            <input type="number" v-model.number.lazy='filteredByPrice.to'>
+          <div class="input-group mb-3">
+            <span class='input-group-text'>Фильтровать от</span>
+            <input type="number" class='form-control' v-model.number.lazy='filteredByPrice.from'>
+            <span class='input-group-text'>до</span>
+            <input type="number" class='form-control' v-model.number.lazy='filteredByPrice.to'>
           </div>
 
           <div class="row row-cols-1 row-cols-md-3 g-4">
             <div class="col" v-for='product in filteredProducts'>
-              <div class="card">
-                <img :src="product.imageUrl" class="card-img-top" alt="grechka">
+              <div class="card mb-3 shadow-sm">
+                <div class="p-4">
+                  <img :src="product.imageUrl" class="card-img-top" alt="grechka">
+                </div>
                 <div class="card-body">
                   <h5 class="card-title">{{product.name}}</h5>
                   <p class="card-text">Цена за кг: {{ product.price }} грн</p>
-                  <a :href="product.url" class="btn btn-sm btn-primary btn-block stretched-link">Просмотреть товар</a>
+                  <a :href="product.url" class="btn btn-sm btn-warning btn-block stretched-link">Купить</a>
                 </div>
               </div>
             </div>
@@ -48,7 +76,18 @@
     </div>
 
   </div>
-
+</main>
+<footer class="text-muted">
+  <div class="container">
+    <p class="float-right">
+      <a href="#">Back to top</a>
+    </p>
+    <p>Тестовое задание для категории Web Development.</p>
+    <p>Сделано командой "Энтузиасты"</p>
+  </div>
+</footer>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+      <script>window.jQuery || document.write('<script src="../assets/js/vendor/jquery.slim.min.js"><\/script>')</script><script src="../assets/dist/js/bootstrap.bundle.min.js"></script>
   <script src="https://unpkg.com/vue@next"></script>
   <script src='/app.js'></script>
 </body>

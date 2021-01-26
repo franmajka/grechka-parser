@@ -1,3 +1,4 @@
+/* eslint-disable no-await-in-loop */
 import puppeteer from 'puppeteer';
 
 class Parser {
@@ -28,7 +29,7 @@ async function getData(parsers) {
     await page.waitForSelector(parser.waitForSelector);
 
     data = data.concat(await page.evaluate(parser.parse));
-  };
+  }
 
   browser.close();
 
@@ -39,7 +40,7 @@ const zakazParse = () => {
   let items = Array.from(document.querySelectorAll('.product-tile'));
 
   return items.map($el => {
-    let weight = $el.querySelector('.product-tile__weight').innerText.trim()
+    let weight = $el.querySelector('.product-tile__weight').innerText.trim();
     weight = weight.replace('за', '');
     const unit = weight.replaceAll(/[ 0-9]/g, '');
     weight = parseFloat(weight);
@@ -51,9 +52,9 @@ const zakazParse = () => {
       price: +(parseFloat($el.querySelector('.Price__value_caption').innerText) / weight).toFixed(2),
       url: $el.href,
       imageUrl: $el.querySelector('.product-tile__image-i').src,
-    }
-  })
-}
+    };
+  });
+};
 
 // Function that'll parse buckwheat
 const getDataAboutBuckwheat = getData.bind(null, [
@@ -78,7 +79,7 @@ const getDataAboutBuckwheat = getData.bind(null, [
           price: +(parseFloat($el.querySelector('[class^="item_price"]').innerText.replace(',', '.')) / weight).toFixed(2),
           url: $name.href,
           imageUrl: $el.querySelector('[class^="item_image"] img').src,
-        }
+        };
       });
     }
   ),
@@ -117,7 +118,7 @@ const getDataAboutBuckwheat = getData.bind(null, [
           price: +(parseFloat($el.querySelector('.product-price').innerText.replace(',', '.')) / weight).toFixed(2),
           url: $name.href,
           imageUrl: $el.querySelector('.product-thumbnail-first').src,
-        }
+        };
       });
     }
   ),
