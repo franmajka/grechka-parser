@@ -31,14 +31,20 @@
             <input type="number" v-model.number.lazy='filteredByPrice.to'>
           </div>
 
-          <div class="row row-cols-1 row-cols-md-3 g-4">
-            <div class="col" v-for='product in filteredProducts'>
-              <div class="card">
-                <img :src="product.imageUrl" class="card-img-top" alt="grechka">
-                <div class="card-body">
-                  <h5 class="card-title">{{product.name}}</h5>
-                  <p class="card-text">Цена за кг: {{ product.price }} грн</p>
-                  <a :href="product.url" class="btn btn-sm btn-primary btn-block stretched-link">Просмотреть товар</a>
+          <div class="album py-5 bg-light">
+            <div class="container">
+              <div class="row row-cols-1 row-cols-md-3 g-4">
+                <div class="col" v-for='product in sortedProducts'>
+                  <div class="card border-warning mb-3 shadow-sm">
+                    <div class="card-header">Featured</div>
+                    <img :src="product.imageUrl" class="card-img-top" alt="grechka">
+                    <div class="card-body">
+                      <h5 class="card-title">{{product.name}}</h5>
+                      <p class="card-text">Цена за кг: {{ product.price }} грн</p>
+                      <a :href="product.url" class="btn btn-sm btn-warning btn-block stretched-link">Просмотреть
+                        товар</a>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
